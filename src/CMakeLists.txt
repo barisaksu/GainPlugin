@@ -61,10 +61,10 @@ target_compile_definitions(GainPlugin
     JUCE_DISPLAY_SPLASH_SCREEN=0
 )
 
-# juce_add_binary_data(JuceLogoBinary
-# SOURCES 
-# ${CMAKE_SOURCE_DIR}/assets/juce-logo.svg
-# )
+juce_add_binary_data(bgBinary
+SOURCES 
+${CMAKE_SOURCE_DIR}/assets/bg.png
+)
 
 target_sources(GainPlugin PRIVATE
     PluginEditor.cpp
@@ -72,6 +72,7 @@ target_sources(GainPlugin PRIVATE
 )
 
 target_link_libraries(GainPlugin PUBLIC
+bgBinary
 juce::juce_audio_basics
 juce::juce_audio_devices
 juce::juce_audio_formats
