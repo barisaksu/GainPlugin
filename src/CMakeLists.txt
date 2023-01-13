@@ -72,7 +72,6 @@ target_sources(GainPlugin PRIVATE
 )
 
 target_link_libraries(GainPlugin PUBLIC
-JuceLogoBinary
 juce::juce_audio_basics
 juce::juce_audio_devices
 juce::juce_audio_formats
