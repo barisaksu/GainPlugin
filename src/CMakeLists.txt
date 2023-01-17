@@ -61,18 +61,21 @@ target_compile_definitions(GainPlugin
     JUCE_DISPLAY_SPLASH_SCREEN=0
 )
 
-juce_add_binary_data(bgBinary
-SOURCES 
-${CMAKE_SOURCE_DIR}/assets/bg.png
-)
+# juce_add_binary_data(bgBinary
+# SOURCES 
+# ${CMAKE_SOURCE_DIR}/assets/bg.png
+# )
+
 
 target_sources(GainPlugin PRIVATE
     PluginEditor.cpp
     PluginProcessor.cpp
+    myLookAndFeel.cpp
+	myLookAndFeel.h
 )
 
 target_link_libraries(GainPlugin PUBLIC
-bgBinary
+BinaryData
 juce::juce_audio_basics
 juce::juce_audio_devices
 juce::juce_audio_formats
