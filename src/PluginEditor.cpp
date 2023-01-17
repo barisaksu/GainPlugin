@@ -14,42 +14,55 @@
 GainpluginAudioProcessorEditor::GainpluginAudioProcessorEditor(
     GainpluginAudioProcessor &p)
     : AudioProcessorEditor(&p), audioProcessor(p) {
-  // Make sure that before the constructor has finished, you've set the
-  // editor's size to whatever you need it to be.
   setSize(400, 300);
 
+  silverKnob.setLookAndFeel(ImageCache::getFromMemory(
+      BinaryData::silver_knob_png, BinaryData::silver_knob_pngSize));
+
   gainSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
-  gainSlider.setRange(-96.0f, 24.0f, 0.01f);
-  gainSlider.setValue(0.0f);
-  gainSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 80,15);
+  gainSlider.setLookAndFeel(&silverKnob);
+  gainSlider.setRange(-60.0f, 0.0f, 0.01f);
+  gainSlider.setValue(-20.0f);
+  gainSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 80, 15);
   // add db suffix
   gainSlider.setTextValueSuffix(" dB");
-
+  gainSlider.addListener(this);
   addAndMakeVisible(gainSlider);
+
+  githubLink.setButtonText("Source Code");
+  githubLink.setColour(juce::HyperlinkButton::ColourIds::textColourId,
+                       juce::Colours::black);
+  githubLink.setFont(juce::Font(15.0f), false, juce::Justification::centredRight - 10);                     
+  githubLink.addListener(this);
+  addAndMakeVisible(&githubLink);
 }
 
 GainpluginAudioProcessorEditor::~GainpluginAudioProcessorEditor() {}
 
 //==============================================================================
 void GainpluginAudioProcessorEditor::paint(juce::Graphics &g) {
-  // (Our component is opaque, so we must completely fill the background with a
-  // solid colour)
   g.fillAll(juce::Colours::black);
 
   // set bg image
   juce::Image bg = juce::ImageCache::getFromMemory(BinaryData::bg_png,
                                                    BinaryData::bg_pngSize);
   g.drawImageAt(bg, 0, 0);
-
-  g.setColour(juce::Colours::white);
-  g.setFont(30.0f);
-  g.drawFittedText("Gain Plugin", getLocalBounds(),
-                   juce::Justification::centredTop, 5);
 }
 
 void GainpluginAudioProcessorEditor::resized() {
-  // This is generally where you'll want to lay out the positions of any
-  // subcomponents in your editor..
+  gainSlider.setBounds(getWidth() / 2 - 70, getHeight() / 2 - 60, 150, 150);
 
-  gainSlider.setBounds(getWidth() / 2 - 50, getHeight() / 2 - 75, 100, 150);
+  githubLink.setBounds(getWidth() - 100, getHeight() - 40, 100, 30);
+}
+
+void GainpluginAudioProcessorEditor::sliderValueChanged(Slider *slider) {
+  if (slider == &gainSlider) {
+    audioProcessor.gainParam = gainSlider.getValue();
+  }
+}
+
+void GainpluginAudioProcessorEditor::buttonClicked(Button *button) {
+  if (button == &githubLink) {
+    URL("https://github.com/barisaksu/GainPlugin").launchInDefaultBrowser();
+  }
 }
