@@ -14,8 +14,8 @@ juce_add_plugin(GainPlugin
     # VERSION ...                                     # Set this if the plugin version is different to the project version
     # ICON_BIG ""   # ICON_* arguments specify a path to an image file to use as an icon for the Standalone
     #   ICON_SMALL "${CMAKE_SOURCE_DIR}/Assets/icon16.png " 
-    COMPANY_NAME "Barış Aksu"                    # Specify the name of the plugin's author
-    COMPANY_COPYRIGHT "Barış Aksu"
+    COMPANY_NAME "BarisDSP"                    # Specify the name of the plugin's author
+    COMPANY_COPYRIGHT "BarisDSP"
     COMPANY_WEBSITE "https://barisaksu.com/"
     COMPANY_EMAIL "baris@barisaksu.com"
     IS_SYNTH FALSE                       # Is this a synth or an effect?
@@ -24,16 +24,16 @@ juce_add_plugin(GainPlugin
     # IS_MIDI_EFFECT TRUE/FALSE                 # Is this plugin a MIDI effect?
     # EDITOR_WANTS_KEYBOARD_FOCUS TRUE/FALSE    # Does the editor need keyboard focus?
     # COPY_PLUGIN_AFTER_BUILD TRUE/FALSE        # Should the plugin be installed to a default location after building?
-    PLUGIN_MANUFACTURER_CODE CCCC               # A four-character manufacturer id with at least one upper-case character
-    PLUGIN_CODE XXXX                            # A unique four-character plugin id with at least one upper-case character
+    PLUGIN_MANUFACTURER_CODE GtML               # A four-character manufacturer id with at least one upper-case character
+    PLUGIN_CODE Sgp3                            # A unique four-character plugin id with at least one upper-case character
     FORMATS 
     # The formats to build. Other valid formats are: AAX Unity VST AU AUv3
-            # Standalone 
+            Standalone 
             # AU
             # AUv3 
             VST3 
             # Unity 
-            # ${AAX_BUILD_FLAG}               
+            ${AAX_BUILD_FLAG}               
     VST3_CATEGORIES "Fx" 
     # AU_MAIN_TYPE "kAudioUnitType_Effect"
     # AU_SANDBOX_SAFE TRUE
@@ -46,7 +46,7 @@ juce_add_plugin(GainPlugin
     MICROPHONE_PERMISSION_ENABLED TRUE
     MICROPHONE_PERMISSION_TEXT "This applicaion requires a permission to use an audio input device of your computer. By Default, Built-In microphone will be used."
 
-    PRODUCT_NAME "GainPlugin")        # The name of the final 
+    PRODUCT_NAME "GainPluginExample")        # The name of the final 
 
 target_compile_features(GainPlugin PUBLIC cxx_std_17)
 
@@ -57,6 +57,7 @@ target_compile_definitions(GainPlugin
     JUCE_WEB_BROWSER=0  # If you remove this, add `NEEDS_WEB_BROWSER TRUE` to the `juce_add_plugin` call
     JUCE_USE_CURL=0     # If you remove this, add `NEEDS_CURL TRUE` to the `juce_add_plugin` call
     JUCE_VST3_CAN_REPLACE_VST2=0
+    JUCE_USE_STUDIO_ONE_COMPATIBLE_PARAMETERS=1
     # JUCE_DISPLAY_SPLASH_SCREEN=0 #if your plugin is distributed with GPL license or paid
     JUCE_DISPLAY_SPLASH_SCREEN=0
 )
@@ -83,14 +84,14 @@ juce::juce_audio_plugin_client
 juce::juce_audio_processors
 juce::juce_audio_utils
 juce::juce_core
-juce::juce_cryptography
-juce::juce_data_structures
+#juce::juce_cryptography
+#juce::juce_data_structures
 juce::juce_dsp
 juce::juce_events
 juce::juce_graphics
 juce::juce_gui_basics
 juce::juce_gui_extra
-juce::juce_opengl
+#juce::juce_opengl
 juce::juce_product_unlocking
 )
 
